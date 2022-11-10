@@ -1,7 +1,9 @@
 from datetime import datetime
 now = datetime.now()
+
 class Event():
-    """Event class to record the location, time stamp, presence and motion of an event
+    """
+    Event class to record the location, time stamp, presence and motion of an event
     
     Args:
         location (str): takes in the location of the recorded event
@@ -12,16 +14,18 @@ class Event():
 
     def __init__(self, location):
 
-        self.location = location
-        self.timestamp = now.strftime("%m/%d/%Y - %H:%M:%S")
-        self.presence = False
-        self.motion = None
+        self.__location = location
+        self.__timestamp = now.strftime("%m/%d/%Y - %H:%M:%S")
+        self.__presence = False
+        self.__past_presence = False
+        self.__motion = None
+        self.all_locations = []
 
     def __str__(self):
         """
         Returns arguments in an appropriate, readable format
         """
-        return f"In the {self.location} at {self.timestamp}\nMotion detection is {self.motion}\nPresence is {self.presence}"
+        return f"In the {self.__location} at {self.__timestamp}\nMotion detection is {self.__motion}\nPresence is {self.__presence}"
     
     def set_motion(self, motion):
         """
@@ -33,11 +37,12 @@ class Event():
         Return
             presence (bool): true if motion is true, false if motion is false
         """
-        self.motion = motion
+        self.__motion = motion
         if motion == True:
-            self.presence = True
+            self.set_presence(True)
         else:
-            self.presence = False
+            return
+
 
     def get_motion(self):
         """
@@ -46,7 +51,7 @@ class Event():
         Return:
             motion (bool): motion detector response
         """
-        return self.motion
+        return self.__motion
 
     def get_presence(self):
         """
@@ -55,9 +60,34 @@ class Event():
         Return:
             presence(bool): dependent on motion parameter
         """
-        return self.presence
+        return self.__presence
 
-    
+    def set_presence(self, presence):
+        self.set_past_presence()
+        self.__presence = presence
+
+    def get_location(self):
+        """
+        Location getter
+
+        Return:
+            location(string): returns the location of the current event
+        """
+        return self.__location
+
+    def set_past_presence(self):
+        self.__past_presence = self.__presence
+
+    def get_past_presence(self):
+        return self.__past_presence
+
+    def check_presence_change(self):
+        if self.get_past_presence() == self.__presence:
+            return False
+        else:
+            return True
+
+
 if __name__ == '__main__':
     kitchen = Event("kitchen",)
     kitchen.set_motion(True)
@@ -65,6 +95,6 @@ if __name__ == '__main__':
     bedroom = Event("bedroom")
     bedroom.set_motion(False)
 
-    print(kitchen.__str__())
-    print(bedroom.__str__())
-    pass
+    print(kitchen)
+    print(bedroom)
+    print(kitchen.get_presence())
