@@ -14,7 +14,7 @@ if __name__ == '__main__':
 
     while True:
         if kitchen.check_presence_change() == True:
-            kitchen.add_event(kitchen.get_location())
+            kitchen.add_event(kitchen.get_location(), kitchen.get_past_presence(), kitchen.get_presence())
             break
         else:
             break

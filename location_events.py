@@ -4,8 +4,8 @@ class LocationEvent(Event):
         super().__init__(location)
         self.all_motion = []
     
-    def add_event(self, location):
-        self.all_motion.append(location)
+    def add_event(self, location, past_presence, current_presence):
+        self.all_motion.append(f'The room is the {location}, it\'s presence changed from {past_presence} to {current_presence}')
 
 
 
