@@ -1,4 +1,4 @@
-from event import Event
+
 from location_events import LocationEvent
 
 if __name__ == '__main__':

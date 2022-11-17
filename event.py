@@ -63,6 +63,15 @@ class Event():
         return self.__presence
 
     def set_presence(self, presence):
+        """
+        Presence setter
+        Also runs set_past_presence() command to store past presence
+
+        Args:
+            presence (bool): presence the user would like to change to
+
+        
+        """
         self.set_past_presence()
         self.__presence = presence
 
@@ -76,12 +85,30 @@ class Event():
         return self.__location
 
     def set_past_presence(self):
+        """
+        Past presence setter
+
+        Stores current presence as past presence
+        """
         self.__past_presence = self.__presence
+        
 
     def get_past_presence(self):
+        """
+        Past presence getter
+
+        Returns:
+            past presence(bool): returns the previously stored presence
+        """
         return self.__past_presence
 
     def check_presence_change(self):
+        """
+        Checks if presence has changed
+
+        Returns:
+            change(bool): if current presence = previous presence: returns False, otherwise returns true
+        """
         if self.get_past_presence() == self.__presence:
             return False
         else:
